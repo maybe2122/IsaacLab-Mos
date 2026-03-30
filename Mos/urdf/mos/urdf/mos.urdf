@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="mos">
+  <link
+    name="hip_motor">
+    <inertial>
+      <origin
+        xyz="0.0194551261869284 -0.0930459309938847 -0.0556146225087043"
+        rpy="0 0 0" />
+      <mass
+        value="0.193691933258787" />
+      <inertia
+        ixx="0.000212643438550045"
+        ixy="2.52842936395251E-08"
+        ixz="-3.06353262610684E-08"
+        iyy="0.000111361590772375"
+        iyz="-3.6293369034784E-07"
+        izz="0.000115174940649883" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/hip_motor.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/hip_motor.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="hip_body">
+    <inertial>
+      <origin
+        xyz="0.113264886696619 -0.010939736154655 0.000155813716184991"
+        rpy="0 0 0" />
+      <mass
+        value="0.955506794003184" />
+      <inertia
+        ixx="0.000905573001572805"
+        ixy="5.947750436196E-08"
+        ixz="-1.41358307936407E-07"
+        iyy="0.00263152887558251"
+        iyz="-3.88325839084184E-07"
+        izz="0.0020683447756269" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/hip_body.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/hip_body.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="hip_joint"
+    type="revolute">
+    <origin
+      xyz="-0.232 -0.0931137748892993 -0.055517498927173"
+      rpy="0 0 0" />
+    <parent
+      link="hip_motor" />
+    <child
+      link="hip_body" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-0.5"
+      upper="0.5"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="front_gear">
+    <inertial>
+      <origin
+        xyz="-0.0115977379770727 -0.0352783724994292 8.18789480661053E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.0435777838010683" />
+      <inertia
+        ixx="9.83324206309477E-06"
+        ixy="8.76575456207127E-22"
+        ixz="8.15712421136005E-22"
+        iyy="1.08486728108915E-05"
+        iyz="-8.72979284537759E-22"
+        izz="9.83324206309479E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/front_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/front_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="font_gear"
+    type="revolute">
+    <origin
+      xyz="0.166000000000002 0.0461500000000001 0"
+      rpy="0 0 0" />
+    <parent
+      link="hip_body" />
+    <child
+      link="front_gear" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-0.5"
+      upper="0.5"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="small_shaft">
+    <inertial>
+      <origin
+        xyz="-0.0283638055421658 -0.0151800435668482 0.0331689181534142"
+        rpy="0 0 0" />
+      <mass
+        value="0.171587640340336" />
+      <inertia
+        ixx="0.000276467644126589"
+        ixy="4.64008836214695E-06"
+        ixz="0.000195508397636774"
+        iyy="0.000443409046409564"
+        iyz="-5.41780154781775E-06"
+        izz="0.000216606852191212" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/small_shaft.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/small_shaft.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="small_shaft"
+    type="revolute">
+    <origin
+      xyz="-0.0500000000000008 0.0409999999999993 -0.0100999999999986"
+      rpy="0 0 0" />
+    <parent
+      link="front_gear" />
+    <child
+      link="small_shaft" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.5"
+      upper="0.5"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="shank_link">
+    <inertial>
+      <origin
+        xyz="-0.0389905696407307 -0.0128234649727959 -0.060968573914411"
+        rpy="0 0 0" />
+      <mass
+        value="0.0469428771745656" />
+      <inertia
+        ixx="0.000107185813033781"
+        ixy="-3.20461030869092E-07"
+        ixz="-5.18563116705513E-05"
+        iyy="0.000135916196790493"
+        iyz="-5.01255334428387E-07"
+        izz="2.99406147340324E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/shank_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/shank_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="shank_joint"
+    type="revolute">
+    <origin
+      xyz="-0.101813725620471 -0.00600440931190334 0.118695762806014"
+      rpy="0 0 0" />
+    <parent
+      link="small_shaft" />
+    <child
+      link="shank_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-0.5"
+      upper="0.5"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rear_gear">
+    <inertial>
+      <origin
+        xyz="0.00948406530882989 -0.0281318633902966 6.38378239159465E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.0532897762392778" />
+      <inertia
+        ixx="1.1103625915427E-05"
+        ixy="8.91828107959389E-21"
+        ixz="1.73453473662548E-21"
+        iyy="1.30869771246257E-05"
+        iyz="-2.72849225999803E-21"
+        izz="1.1103625915427E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/rear_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/rear_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_gear"
+    type="revolute">
+    <origin
+      xyz="0.066 0.04615 0"
+      rpy="0 0 0" />
+    <parent
+      link="hip_body" />
+    <child
+      link="rear_gear" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-0.5"
+      upper="0.5"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="large_shaft_thigh">
+    <inertial>
+      <origin
+        xyz="-0.0313750870206426 -0.0064632093424145 -0.0357057922216403"
+        rpy="0 0 0" />
+      <mass
+        value="0.218415891158775" />
+      <inertia
+        ixx="0.000414517155980149"
+        ixy="9.59964868887756E-06"
+        ixz="-0.000287128133438103"
+        iyy="0.000728917927475938"
+        iyz="1.09246934672718E-05"
+        izz="0.000340058948918026" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/large_shaft_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/large_shaft_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="large_shaft_thigh"
+    type="revolute">
+    <origin
+      xyz="0.0500000000000003 0.022 -0.0101000000000003"
+      rpy="0 0 0" />
+    <parent
+      link="rear_gear" />
+    <child
+      link="large_shaft_thigh" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.5"
+      upper="0.5"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="shank">
+    <inertial>
+      <origin
+        xyz="0.0454200076937986 -0.0140210809709113 -0.0432126494263227"
+        rpy="0 0 0" />
+      <mass
+        value="0.286222521216194" />
+      <inertia
+        ixx="0.000792153683068097"
+        ixy="-8.0507838236492E-07"
+        ixz="0.000583963212768704"
+        iyy="0.00130942149479999"
+        iyz="9.17368606622592E-07"
+        izz="0.00053283634405178" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/shank.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos/meshes/shank.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="shank"
+    type="revolute">
+    <origin
+      xyz="-0.115405435556015 0.0174955906880945 -0.138872325524697"
+      rpy="0 0 0" />
+    <parent
+      link="large_shaft_thigh" />
+    <child
+      link="shank" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.5"
+      upper="0.5"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>
