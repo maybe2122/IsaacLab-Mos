@@ -1,0 +1,1 @@
+./isaaclab.sh -p scripts/tools/convert_urdf.py   /home/sz/code/rl/IsaacLab-Mos/Mos/urdf/mos/urdf/mos.urdf /home/sz/code/rl/IsaacLab-Mos/Mos/assets/mos/mos.usd   --merge-joints   --joint-stiffness 0.0   --joint-damping 0.0   --joint-target-type none
