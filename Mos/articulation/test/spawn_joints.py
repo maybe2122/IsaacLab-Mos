@@ -1,66 +1,51 @@
-# -*- coding: utf-8 -*-
+
 """
-Auto-generate articulation configuration for a robot USD in Isaac Lab.
-
-Instructions:
-1. 将 `usd_path` 替换为你自己的机器人 USD 文件路径。
-2. 运行此脚本，它会读取 USD 中所有关节，并生成初始 joint_pos 和 actuator 配置。
-3. 根据需要修改 stiffness/damping/effort_limit。
+离线扫描 USD 关节并生成 ArticulationCfg 代码文件。
+使用方式：在安装了 pxr (usd-core) 的普通 Python 环境下运行。
+    pip install usd-core
+    python gen_cfg.py
 """
+from pxr import Usd, UsdPhysics
+import os
 
-import omni.usd
-from pxr import Usd, UsdGeom, PhysxSchema
-from isaaclab.sim import UsdFileCfg, RigidBodyPropertiesCfg, ArticulationRootPropertiesCfg
-from isaaclab.actuators import ImplicitActuatorCfg
-from isaaclab.assets import ArticulationCfg
-from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR
+# === 1. 替换为本地 USD 路径 ===
+usd_path = f"/home/sz/code/rl/IsaacLab-Mos/Mos/assets/mos/mos.usd"
+output_path = "robot_cfg.py"
 
-# === 1. 设置你的 USD 路径 ===
-usd_path = f"{ISAACLAB_NUCLEUS_DIR}/path/to/your_robot.usd"
-
-# 打开 USD stage
 stage = Usd.Stage.Open(usd_path)
 if not stage:
     raise RuntimeError(f"无法打开 USD 文件: {usd_path}")
 
-# === 2. 扫描关节 ===
-joint_paths = []
+# === 2. 扫描关节（按类型过滤） ===
+joint_names = []
+for prim in stage.Traverse():
+    if prim.IsA(UsdPhysics.RevoluteJoint) or prim.IsA(UsdPhysics.PrismaticJoint):
+        joint_names.append(prim.GetName())
 
-def collect_joints(prim):
-    from pxr import PhysxSchema
-    if PhysxSchema.PhysxArticulationJointAPI.HasAPI(prim):
-        joint_paths.append(prim.GetName())
-    for child in prim.GetChildren():
-        collect_joints(child)
+print(f"检测到 {len(joint_names)} 个关节: {joint_names}")
 
-collect_joints(stage.GetPseudoRoot())
+# === 3. 生成 Python 配置代码并写入文件 ===
+joint_pos_lines = "\n".join(
+    f'            "{name}": 0.0,' for name in joint_names
+)
+joint_names_expr = str(joint_names)
 
-print(f"检测到 {len(joint_paths)} 个关节: {joint_paths}")
+code = f'''\
+import isaaclab.sim as sim_utils
+from isaaclab.actuators import ImplicitActuatorCfg
+from isaaclab.assets import ArticulationCfg
 
-# === 3. 自动生成 joint_pos 和 actuator 配置 ===
-joint_pos = {name: 0.0 for name in joint_paths}  # 初始角度/位置都为 0
-actuators = {
-    f"{name}_actuator": ImplicitActuatorCfg(
-        joint_names_expr=[name],
-        effort_limit_sim=100.0,  # 默认最大力矩/力
-        stiffness=0.0,           # 默认刚度
-        damping=1.0,             # 默认阻尼
-    )
-    for name in joint_paths
-}
-
-# === 4. 生成 ArticulationCfg ===
 ROBOT_CFG = ArticulationCfg(
-    spawn=UsdFileCfg(
-        usd_path=usd_path,
-        rigid_props=RigidBodyPropertiesCfg(
+    spawn=sim_utils.UsdFileCfg(
+        usd_path="{usd_path}",
+        rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
             max_linear_velocity=1000.0,
             max_angular_velocity=1000.0,
             max_depenetration_velocity=100.0,
             enable_gyroscopic_forces=True,
         ),
-        articulation_props=ArticulationRootPropertiesCfg(
+        articulation_props=sim_utils.ArticulationRootPropertiesCfg(
             enabled_self_collisions=False,
             solver_position_iteration_count=4,
             solver_velocity_iteration_count=0,
@@ -69,10 +54,24 @@ ROBOT_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 0.0),  # 世界初始位置
-        joint_pos=joint_pos
+        pos=(0.0, 0.0, 0.0),
+        joint_pos={{
+{joint_pos_lines}
+        }},
     ),
-    actuators=actuators
+    actuators={{
+        # TODO: 按实际需要分组，调整 stiffness/damping/effort_limit_sim
+        "all_joints": ImplicitActuatorCfg(
+            joint_names_expr={joint_names_expr},
+            effort_limit_sim=100.0,
+            stiffness=80.0,
+            damping=4.0,
+        ),
+    }},
 )
+'''
 
-print("ArticulationCfg 模板生成完成！")
+with open(output_path, "w", encoding="utf-8") as f:
+    f.write(code)
+
+print(f"配置文件已写入: {output_path}")
