@@ -15,8 +15,10 @@
 6. [TerminationCfg 终止条件配置](#6-terminationcfg-终止条件配置)
 7. [EventCfg 事件配置](#7-eventcfg-事件配置)
 8. [EnvironmentCfg 汇总配置](#8-environmentcfg-汇总配置)
-9. [注册环境](#9-注册环境)
-10. [文件结构](#10-文件结构)
+9. [Agent 配置（RSL-RL）](#9-agent-配置rsl-rl)
+10. [注册环境](#10-注册环境)
+11. [启动训练](#11-启动训练)
+12. [文件结构](#12-文件结构)
 
 ---
 
@@ -385,11 +387,70 @@ class MosEnvCfg(ManagerBasedRLEnvCfg):
 
 ---
 
-## 9. 注册环境
+## 9. Agent 配置（RSL-RL）
 
-在扩展包的 `__init__.py` 中注册到 gym：
+训练脚本使用 `RslRlBaseRunnerCfg` 的子类作为 agent 配置，支持两种 runner：`OnPolicyRunner`（标准 PPO）和 `DistillationRunner`（蒸馏）。
+
+**关键点：`class_name` 字段决定使用哪种 runner，训练脚本通过它来选择实例化哪个类，必须正确填写。**
 
 ```python
+# agents/rsl_rl_cfg.py
+from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlPpoActorCriticCfg, RslRlPpoAlgorithmCfg
+from isaaclab.utils import configclass
+
+@configclass
+class MosRunnerCfg(RslRlOnPolicyRunnerCfg):
+    # runner 类型，必须是 "OnPolicyRunner" 或 "DistillationRunner"
+    # 训练脚本根据此字段决定实例化哪个 runner
+    class_name = "OnPolicyRunner"
+
+    # 实验名称，日志会存到 logs/rsl_rl/<experiment_name>/
+    experiment_name = "mos"
+
+    # 单次运行的子目录名，为空则自动用时间戳
+    run_name = ""
+
+    # 最大训练迭代次数（可被命令行 --max_iterations 覆盖）
+    max_iterations = 5000
+
+    # 保存 checkpoint 的间隔（迭代次数）
+    save_interval = 500
+
+    # 网络结构配置
+    policy = RslRlPpoActorCriticCfg(
+        init_noise_std=1.0,
+        actor_hidden_dims=[512, 256, 128],
+        critic_hidden_dims=[512, 256, 128],
+        activation="elu",
+    )
+
+    # PPO 算法超参数
+    algorithm = RslRlPpoAlgorithmCfg(
+        value_loss_coef=1.0,
+        use_clipped_value_loss=True,
+        clip_param=0.2,
+        entropy_coef=0.01,
+        num_learning_epochs=5,
+        num_mini_batches=4,
+        learning_rate=1.0e-3,
+        schedule="adaptive",
+        gamma=0.99,
+        lam=0.95,
+        desired_kl=0.01,
+        max_grad_norm=1.0,
+    )
+```
+
+---
+
+## 10. 注册环境
+
+在扩展包的 `__init__.py` 中注册到 gym。
+
+**关键点：`rsl_rl_cfg_entry_point` 这个 key 必须和训练脚本 `--agent` 参数的默认值 `"rsl_rl_cfg_entry_point"` 完全一致，否则脚本找不到 agent 配置。**
+
+```python
+# envs/__init__.py
 import gymnasium as gym
 
 gym.register(
@@ -397,21 +458,72 @@ gym.register(
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
-        "env_cfg_entry_point": "your_package.envs.mos_env:MosEnvCfg",
-        "rsl_rl_cfg_entry_point": "your_package.agents.rsl_rl_cfg:MosPPORunnerCfg",
+        # env_cfg_entry_point：指向你的环境配置类
+        "env_cfg_entry_point": "your_package.envs.mos_env_cfg:MosEnvCfg",
+
+        # rsl_rl_cfg_entry_point：key 名必须与训练脚本 --agent 默认值一致
+        "rsl_rl_cfg_entry_point": "your_package.agents.rsl_rl_cfg:MosRunnerCfg",
     }
 )
 ```
 
-注册后可以通过任务名启动训练：
+---
+
+## 11. 启动训练
+
+**基本启动：**
 
 ```bash
-./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py --task Mos-v0 --num_envs 4096
+./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py \
+    --task Mos-v0 \
+    --num_envs 4096
+```
+
+**常用参数：**
+
+```bash
+./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py \
+    --task Mos-v0 \
+    --num_envs 4096 \
+    --seed 42 \                        # 固定随机种子
+    --max_iterations 5000 \            # 覆盖 agent cfg 里的 max_iterations
+    --video \                          # 训练时录制视频
+    --video_length 200 \               # 每段视频长度（步数）
+    --video_interval 2000 \            # 每隔多少步录一次
+    --distributed                      # 多 GPU 训练
+```
+
+**通过 Hydra 在命令行直接覆盖任意配置参数（无需改代码）：**
+
+训练脚本使用了 `@hydra_task_config` 装饰器，支持在命令行直接覆盖 `env_cfg` 和 `agent_cfg` 里的任意字段，格式为 `字段路径=值`：
+
+```bash
+# 覆盖奖励权重
+./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py \
+    --task Mos-v0 \
+    env.rewards.track_lin_vel_xy_exp.weight=2.0 \
+    env.rewards.action_rate_l2.weight=-0.02
+
+# 覆盖学习率
+./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py \
+    --task Mos-v0 \
+    agent.algorithm.learning_rate=3e-4
+```
+
+**日志位置：**
+
+训练日志和 checkpoint 自动保存到：
+```
+logs/rsl_rl/<experiment_name>/<时间戳>_<run_name>/
+├── params/
+│   ├── env.yaml     # 完整环境配置快照
+│   └── agent.yaml   # 完整 agent 配置快照
+└── videos/          # 训练视频（如果开启了 --video）
 ```
 
 ---
 
-## 10. 文件结构
+## 12. 文件结构
 
 建议的目录组织方式：
 
@@ -421,12 +533,12 @@ Mos/
 │   └── mos/
 │       └── mos.usd
 ├── articulation/
-│   └── mos_cfg.py          # ArticulationCfg（已完成）
+│   └── mos_cfg.py              # ArticulationCfg（已完成）
 └── envs/
-    ├── __init__.py          # 注册环境
-    ├── mos_env_cfg.py       # 本文所有 Cfg 放这里
+    ├── __init__.py              # 注册环境（gym.register）
+    ├── mos_env_cfg.py           # 所有 Cfg：Scene/Obs/Action/Reward/Term/Event/Env
     └── agents/
-        └── rsl_rl_cfg.py    # 训练 agent 配置（PPO 参数等）
+        └── rsl_rl_cfg.py        # RSL-RL Runner 配置（class_name、PPO参数等）
 ```
 
 ---
@@ -441,4 +553,6 @@ Mos/
 | RewardCfg | ⭐⭐⭐⭐ | 最需要调试，影响训练效果最大 |
 | TerminationCfg | ⭐⭐ | 需要根据机器人形态设置 |
 | EventCfg | ⭐⭐ | 随机化范围需要根据机器人调整 |
-| 注册 | ⭐ | 套模板即可 |
+| Agent 配置 | ⭐⭐ | class_name 必须正确，PPO 参数可先用默认值 |
+| 注册 | ⭐ | key 名必须与训练脚本 --agent 默认值一致 |
+| 启动训练 | ⭐ | 支持 Hydra 命令行覆盖任意参数 |
