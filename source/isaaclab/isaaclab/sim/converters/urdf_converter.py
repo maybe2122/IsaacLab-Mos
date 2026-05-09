@@ -64,8 +64,8 @@ class UrdfConverter(AssetConverterBase):
         # switch to older version of the URDF importer extension
         if get_isaac_sim_version() >= Version("5.1"):
             manager = omni.kit.app.get_app().get_extension_manager()
-            if not manager.is_extension_enabled("isaacsim.asset.importer.urdf-2.4.31"):
-                manager.set_extension_enabled_immediate("isaacsim.asset.importer.urdf-2.4.31", True)
+            if not manager.is_extension_enabled("isaacsim.asset.importer.urdf"):
+                manager.set_extension_enabled_immediate("isaacsim.asset.importer.urdf", True)
 
         # acquire the URDF interface
         from isaacsim.asset.importer.urdf._urdf import acquire_urdf_interface
@@ -140,7 +140,8 @@ class UrdfConverter(AssetConverterBase):
         import_config.set_collision_from_visuals(self.cfg.collision_from_visuals)
         # consolidating links that are connected by fixed joints
         import_config.set_merge_fixed_joints(self.cfg.merge_fixed_joints)
-        import_config.set_merge_fixed_ignore_inertia(self.cfg.merge_fixed_joints)
+        if hasattr(import_config, "set_merge_fixed_ignore_inertia"):
+            import_config.set_merge_fixed_ignore_inertia(self.cfg.merge_fixed_joints)
         # -- physics settings
         # create fix joint for base link
         import_config.set_fix_base(self.cfg.fix_base)

@@ -26,7 +26,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/hip_motor.STL" />
+          filename="../meshes/hip_motor.STL" />
       </geometry>
       <material
         name="">
@@ -40,7 +40,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/hip_motor.STL" />
+          filename="../meshes/hip_motor.STL" />
       </geometry>
     </collision>
   </link>
@@ -66,7 +66,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/hip_body.STL" />
+          filename="../meshes/hip_body.STL" />
       </geometry>
       <material
         name="">
@@ -80,7 +80,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/hip_body.STL" />
+          filename="../meshes/hip_body.STL" />
       </geometry>
     </collision>
   </link>
@@ -124,7 +124,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/front_gear.STL" />
+          filename="../meshes/front_gear.STL" />
       </geometry>
       <material
         name="">
@@ -138,7 +138,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/front_gear.STL" />
+          filename="../meshes/front_gear.STL" />
       </geometry>
     </collision>
   </link>
@@ -182,7 +182,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/rear_gear.STL" />
+          filename="../meshes/rear_gear.STL" />
       </geometry>
       <material
         name="">
@@ -196,7 +196,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/rear_gear.STL" />
+          filename="../meshes/rear_gear.STL" />
       </geometry>
     </collision>
   </link>
@@ -240,7 +240,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/thigh.STL" />
+          filename="../meshes/thigh.STL" />
       </geometry>
       <material
         name="">
@@ -254,7 +254,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/thigh.STL" />
+          filename="../meshes/thigh.STL" />
       </geometry>
     </collision>
   </link>
@@ -298,7 +298,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/shank.STL" />
+          filename="../meshes/shank.STL" />
       </geometry>
       <material
         name="">
@@ -312,7 +312,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/shank.STL" />
+          filename="../meshes/shank.STL" />
       </geometry>
     </collision>
   </link>
@@ -351,7 +351,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/shank_gear.STL" />
+          filename="../meshes/shank_gear.STL" />
       </geometry>
       <material
         name="">
@@ -365,7 +365,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/shank_gear.STL" />
+          filename="../meshes/shank_gear.STL" />
       </geometry>
     </collision>
   </link>
@@ -409,7 +409,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/shank_link.STL" />
+          filename="../meshes/shank_link.STL" />
       </geometry>
       <material
         name="">
@@ -423,7 +423,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mos_leg_51/meshes/shank_link.STL" />
+          filename="../meshes/shank_link.STL" />
       </geometry>
     </collision>
   </link>
