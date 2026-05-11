@@ -81,14 +81,26 @@ LEG_PHASE = {
 }
 
 # Gait shape in the leg's local convention (axis signs above flip these per leg).
-GAIT_FREQ = 1.5                       # Hz
-THIGH_OFFSET = 0.55                   # rad, crouch
-SHANK_OFFSET = -1.10                  # rad, knee bend (opposite sign of thigh)
-THIGH_AMP = 0.30
-SHANK_AMP = 0.50
-HIP_AMP = 0.0                          # no abduction in this simple trot
+# Why zero offsets work:
+#   Each leg's zero-q pose is already a knee-bent V stance — thigh goes
+#   forward-down ~61° from vertical, shank then goes backward-down ~61°, and
+#   the foot lands ~0.16 m below the base origin. So q=0 on every leg gives
+#   the natural standing pose; we just need to spawn the base at that height.
+#   (Both -1.07 and +1.07 thigh offsets flip the V open or twist the shank up,
+#   neither holds the body. Don't add a thigh offset for the standing config.)
+GAIT_FREQ = 1.0                       # Hz; 稳了之后再加速
+THIGH_OFFSET = 0.0                    # zero-q is the natural stance
+SHANK_OFFSET = 0.0
+THIGH_AMP = 0.15                      # thigh 前后摆 ±0.15 rad ≈ ±8.6°
+SHANK_AMP = 0.20                      # shank 与 thigh 相差 90° → 抬腿落腿
+HIP_AMP = 0.0                          # 不需要外展，trot 走直线
 
-INIT_BASE_HEIGHT = 0.42                # spawn height of base link
+INIT_BASE_HEIGHT = 0.30                # 留充足空中余量，让脚自由下落，避免 spawn 一帧穿模被弹飞
+
+# Debug: set True to fix the base in the air so legs hang freely. Useful for
+# eyeballing the natural pose without the body dropping. Disable for walking.
+STATIC_BASE = False
+STATIC_BASE_HEIGHT = 0.20
 
 
 def make_cfg(usd_path: str) -> ArticulationCfg:
@@ -99,14 +111,15 @@ def make_cfg(usd_path: str) -> ArticulationCfg:
         init_joint_pos[f"{lr}_thigh"] = s["thigh"] * THIGH_OFFSET
         init_joint_pos[f"{lr}_shank"] = s["shank"] * SHANK_OFFSET
 
+    base_z = STATIC_BASE_HEIGHT if STATIC_BASE else INIT_BASE_HEIGHT
     return ArticulationCfg(
         spawn=sim_utils.UsdFileCfg(
             usd_path=os.path.abspath(usd_path),
             rigid_props=sim_utils.RigidBodyPropertiesCfg(
                 rigid_body_enabled=True,
-                max_linear_velocity=1000.0,
-                max_angular_velocity=1000.0,
-                max_depenetration_velocity=100.0,
+                max_linear_velocity=20.0,
+                max_angular_velocity=20.0,
+                max_depenetration_velocity=1.0,        # 关键：100 会把哪怕 1mm 穿模都反弹成弹飞
                 enable_gyroscopic_forces=True,
             ),
             articulation_props=sim_utils.ArticulationRootPropertiesCfg(
@@ -115,10 +128,11 @@ def make_cfg(usd_path: str) -> ArticulationCfg:
                 solver_velocity_iteration_count=4,
                 sleep_threshold=0.005,
                 stabilization_threshold=0.001,
+                fix_root_link=STATIC_BASE,
             ),
         ),
         init_state=ArticulationCfg.InitialStateCfg(
-            pos=(0.0, 0.0, INIT_BASE_HEIGHT),
+            pos=(0.0, 0.0, base_z),
             joint_pos=init_joint_pos,
         ),
         actuators={
@@ -134,7 +148,7 @@ def make_cfg(usd_path: str) -> ArticulationCfg:
                 effort_limit_sim=0.0,
                 velocity_limit_sim=1000.0,
                 stiffness=0.0,
-                damping=0.0,
+                damping=0.5,                 # tame closed-loop flop on landing
             ),
         },
     )
