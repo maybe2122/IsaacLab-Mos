@@ -1,0 +1,1671 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="mos2026">
+  <link
+    name="base">
+    <inertial>
+      <origin
+        xyz="5.05649392145247E-09 4.27315165026958E-12 -2.01611571331233E-05"
+        rpy="0 0 0" />
+      <mass
+        value="4.52938987497195" />
+      <inertia
+        ixx="0.0118939827640073"
+        ixy="7.15871816826577E-09"
+        ixz="-4.53204723660032E-06"
+        iyy="0.0117218966850848"
+        iyz="1.37360470679196E-13"
+        izz="0.0193597795090014" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="FL">
+    <inertial>
+      <origin
+        xyz="-0.114292536133729 -0.00901538567016963 -0.000144060042943511"
+        rpy="0 0 0" />
+      <mass
+        value="0.985180705625761" />
+      <inertia
+        ixx="0.000917934574794374"
+        ixy="-7.85870662446068E-09"
+        ixz="-1.41358939679768E-07"
+        iyy="0.00265898792183767"
+        iyz="-3.88340374135963E-07"
+        izz="0.00208199931263449" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/FL.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/FL.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_hip"
+    type="revolute">
+    <origin
+      xyz="-0.3783 -0.0979999999999995 0"
+      rpy="0 0 3.14159265358979" />
+    <parent
+      link="base" />
+    <child
+      link="FL" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="30"
+      velocity="30" />
+  </joint>
+  <link
+    name="fl_shank_motor_gear">
+    <inertial>
+      <origin
+        xyz="-1.11022302462516E-16 -0.0390538870170144 1.36198508530231E-12"
+        rpy="0 0 0" />
+      <mass
+        value="0.0385237466196057" />
+      <inertia
+        ixx="9.47389810508477E-06"
+        ixy="5.29845093318689E-21"
+        ixz="-2.12595110944341E-21"
+        iyy="1.02723402754827E-05"
+        iyz="-2.78470764209272E-17"
+        izz="9.4738981050848E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_shank_motor_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_shank_motor_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_shank_motor_gear"
+    type="revolute">
+    <origin
+      xyz="-0.0659999999999999 0.0461500000000004 0"
+      rpy="0 0 0" />
+    <parent
+      link="FL" />
+    <child
+      link="fl_shank_motor_gear" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="30"
+      velocity="30" />
+  </joint>
+  <link
+    name="fl_thigh_motor_gear">
+    <inertial>
+      <origin
+        xyz="1.0547118733939E-15 -0.0303984035950153 1.05910803135311E-12"
+        rpy="0 0 0" />
+      <mass
+        value="0.0482357390578153" />
+      <inertia
+        ixx="1.0744281957417E-05"
+        ixy="-1.13094903302382E-21"
+        ixz="3.77027292956214E-21"
+        iyy="1.25106445892168E-05"
+        iyz="-6.16062272966921E-17"
+        izz="1.0744281957417E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_thigh_motor_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_thigh_motor_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_thigh_motor_gear"
+    type="revolute">
+    <origin
+      xyz="-0.166 0.0461500000000006 0"
+      rpy="0 0 0" />
+    <parent
+      link="FL" />
+    <child
+      link="fl_thigh_motor_gear" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="30"
+      velocity="30" />
+  </joint>
+  <link
+    name="fl_thigh">
+    <inertial>
+      <origin
+        xyz="-0.0416903933901684 -0.0064632107292911 -0.0228300255177057"
+        rpy="0 0 0" />
+      <mass
+        value="0.218415843420328" />
+      <inertia
+        ixx="0.000221343904808966"
+        ixy="1.27557637909214E-05"
+        ixz="-0.000243946682636573"
+        iyy="0.000728917808892087"
+        iyz="6.98517224053355E-06"
+        izz="0.000533232076940952" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_thigh"
+    type="revolute">
+    <origin
+      xyz="-0.116000000000001 0.0681500000000005 -0.0100999999999994"
+      rpy="0 0 0" />
+    <parent
+      link="FL" />
+    <child
+      link="fl_thigh" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="30"
+      velocity="30" />
+  </joint>
+  <link
+    name="fl_shank">
+    <inertial>
+      <origin
+        xyz="0.0593975200633057 -0.00452547790834365 -0.0324504813274119"
+        rpy="0 0 0" />
+      <mass
+        value="0.286222172424042" />
+      <inertia
+        ixx="0.000479254852671004"
+        ixy="-1.0172028096706E-06"
+        ixz="0.00056942674331614"
+        iyy="0.00130941968037278"
+        iyz="6.74582701230381E-07"
+        izz="0.000845733345817378" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_shank.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_shank.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_shank"
+    type="revolute">
+    <origin
+      xyz="-0.157877949289529 0.00799999999698522 -0.0864554979638718"
+      rpy="0 0 0" />
+    <parent
+      link="fl_thigh" />
+    <child
+      link="fl_shank" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="30"
+      velocity="30" />
+  </joint>
+  <link
+    name="fl_shank_link_a">
+    <inertial>
+      <origin
+        xyz="-0.0320756187166165 -0.015180035644836 0.0295945912641391"
+        rpy="0 0 0" />
+      <mass
+        value="0.1715878074306" />
+      <inertia
+        ixx="0.000229869575436704"
+        ixy="5.24631850545217E-06"
+        ixz="0.000197082687694454"
+        iyy="0.000443409291341337"
+        iyz="-4.83310621316946E-06"
+        izz="0.000263205169500584" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_shank_link_a.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_shank_link_a.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_shank_link"
+    type="revolute">
+    <origin
+      xyz="-0.115999999999999 0.0871500000000003 -0.0101000000000007"
+      rpy="0 0 0" />
+    <parent
+      link="FL" />
+    <child
+      link="fl_shank_link_a" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="30"
+      velocity="30" />
+  </joint>
+  <link
+    name="fl_shank_link_b">
+    <inertial>
+      <origin
+        xyz="-0.0608647621747758 -0.0128230771778003 -0.0391588632689955"
+        rpy="0 0 0" />
+      <mass
+        value="0.0469389680162792" />
+      <inertia
+        ixx="5.44206832307006E-05"
+        ixy="-4.98881381915308E-07"
+        ixz="-6.30822549942962E-05"
+        iyy="0.000135875337881675"
+        iyz="-3.19876245193812E-07"
+        izz="8.26639429301432E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_shank_link_b.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fl_shank_link_b.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_shank_link_b"
+    type="revolute">
+    <origin
+      xyz="-0.115094298861383 -0.00600440930821269 0.105867942279402"
+      rpy="0 0 0" />
+    <parent
+      link="fl_shank_link_a" />
+    <child
+      link="fl_shank_link_b" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="30"
+      velocity="30" />
+  </joint>
+  <link
+    name="FR">
+    <inertial>
+      <origin
+        xyz="-0.11429253613398 0.00901538566873267 0.000144060036829891"
+        rpy="0 0 0" />
+      <mass
+        value="0.985180705784209" />
+      <inertia
+        ixx="0.000917934575216329"
+        ixy="7.85867529409155E-09"
+        ixz="1.41358945277637E-07"
+        iyy="0.00265898792205995"
+        iyz="-3.88340391735502E-07"
+        izz="0.00208199931284305" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/FR.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/FR.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_hip"
+    type="revolute">
+    <origin
+      xyz="-0.3783 0.0980000000000001 0"
+      rpy="0 0 3.14159265358979" />
+    <parent
+      link="base" />
+    <child
+      link="FR" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_shank_motor_gear">
+    <inertial>
+      <origin
+        xyz="-5.55111512312578E-17 0.0390538870170144 -1.36198319948934E-12"
+        rpy="0 0 0" />
+      <mass
+        value="0.0385237466196057" />
+      <inertia
+        ixx="9.47389810508479E-06"
+        ixy="-7.92783726446822E-21"
+        ixz="2.04533331169127E-21"
+        iyy="1.02723402754827E-05"
+        iyz="-2.78475117663374E-17"
+        izz="9.47389810508479E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_shank_motor_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_shank_motor_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_shank_motor"
+    type="revolute">
+    <origin
+      xyz="-0.0659999999999999 -0.04615 0"
+      rpy="0 0 0" />
+    <parent
+      link="FR" />
+    <child
+      link="fr_shank_motor_gear" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_thigh_motor_gear">
+    <inertial>
+      <origin
+        xyz="6.2977401071862E-14 0.0303984035950154 -1.01871872787743E-12"
+        rpy="0 0 0" />
+      <mass
+        value="0.0482357390578153" />
+      <inertia
+        ixx="1.0744281957417E-05"
+        ixy="4.06774169890737E-21"
+        ixz="1.31374117394879E-21"
+        iyy="1.25106445892168E-05"
+        iyz="-6.16020892086416E-17"
+        izz="1.0744281957417E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_thigh_motor_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_thigh_motor_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_thigh_motor"
+    type="revolute">
+    <origin
+      xyz="-0.166 -0.0461500000000002 0"
+      rpy="0 0 0" />
+    <parent
+      link="FR" />
+    <child
+      link="fr_thigh_motor_gear" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_thigh">
+    <inertial>
+      <origin
+        xyz="-0.0501293230229697 0.00726172196508906 -0.00458390111741024"
+        rpy="0 0 0" />
+      <mass
+        value="0.206239284598664" />
+      <inertia
+        ixx="9.78789072068297E-05"
+        ixy="-1.44826941762321E-05"
+        ixz="-5.25111543739145E-05"
+        iyy="0.000712386599732417"
+        iyz="-1.32431731685483E-06"
+        izz="0.000667338949843217" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_thigh"
+    type="revolute">
+    <origin
+      xyz="-0.116000000000216 -0.0681499999996478 0.0101000000022701"
+      rpy="0 0 0" />
+    <parent
+      link="FR" />
+    <child
+      link="fr_thigh" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_shank">
+    <inertial>
+      <origin
+        xyz="0.0355820905118116 0.000520992724911462 -0.0575760634847314"
+        rpy="0 0 0" />
+      <mass
+        value="0.286223346928414" />
+      <inertia
+        ixx="0.0010583374401469"
+        ixy="5.50911524665595E-07"
+        ixz="0.000448486984623419"
+        iyy="0.00130942881887883"
+        iyz="-1.09029831117933E-06"
+        izz="0.000266659961834781" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_shank.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_shank.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_shank"
+    type="revolute">
+    <origin
+      xyz="-0.179252155931131 -0.0060000000005721 -0.0163909912462469"
+      rpy="0 0 0" />
+    <parent
+      link="fr_thigh" />
+    <child
+      link="fr_shank" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_shank_link_a">
+    <inertial>
+      <origin
+        xyz="-0.0142683546910511 0.0151800093841923 0.0412444032630861"
+        rpy="0 0 0" />
+      <mass
+        value="0.171588362218643" />
+      <inertia
+        ixx="0.000402525185338153"
+        ixy="-2.32689244324628E-06"
+        ixz="0.000121603746583408"
+        iyy="0.000443410122193385"
+        iyz="6.74295686317764E-06"
+        izz="9.05504025162501E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_shank_link_a.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_shank_link_a.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_shank_link_a"
+    type="revolute">
+    <origin
+      xyz="-0.116000000000264 -0.0871499999996478 0.0101000000029093"
+      rpy="0 0 0" />
+    <parent
+      link="FR" />
+    <child
+      link="fr_shank_link_a" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_shank_link_b">
+    <inertial>
+      <origin
+        xyz="-0.0713122425860443 0.0128265327510646 -0.0123241952888715"
+        rpy="0 0 0" />
+      <mass
+        value="0.0469442178090742" />
+      <inertia
+        ixx="1.34214893953583E-05"
+        ixy="5.86909680202014E-07"
+        ixz="-3.37621117519969E-05"
+        iyy="0.000135909136829527"
+        iyz="1.01555365076328E-07"
+        izz="0.000123697936148473" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_shank_link_b.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/fr_shank_link_b.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_shank_link_b"
+    type="revolute">
+    <origin
+      xyz="-0.0509009693534448 0.00600440931706228 0.147864045635582"
+      rpy="0 0 0" />
+    <parent
+      link="fr_shank_link_a" />
+    <child
+      link="fr_shank_link_b" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="RL">
+    <inertial>
+      <origin
+        xyz="0.114377491085343 -0.00901538562539204 -0.000144060151242606"
+        rpy="0 0 0" />
+      <mass
+        value="0.98518070670393" />
+      <inertia
+        ixx="0.000917934577851091"
+        ixy="5.94772165636536E-08"
+        ixz="-1.41358490811801E-07"
+        iyy="0.00265898792333122"
+        iyz="-3.88324690937172E-07"
+        izz="0.00208199931423844" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/RL.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.780392156862745 0 0.0156862745098039 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/RL.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rl_hip"
+    type="revolute">
+    <origin
+      xyz="0.3783 -0.0979999999760458 0"
+      rpy="0 0 3.14159265358979" />
+    <parent
+      link="base" />
+    <child
+      link="RL" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rl_thigh_motor_gear">
+    <inertial>
+      <origin
+        xyz="0 -0.0303984035950154 1.06014484309099E-12"
+        rpy="0 0 0" />
+      <mass
+        value="0.0482357390578153" />
+      <inertia
+        ixx="1.0744281957417E-05"
+        ixy="7.12406343428752E-22"
+        ixz="4.33769628068532E-21"
+        iyy="1.25106445892168E-05"
+        iyz="-6.16024735939491E-17"
+        izz="1.0744281957417E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_thigh_motor_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_thigh_motor_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rl_thigh_motor"
+    type="revolute">
+    <origin
+      xyz="0.0660000000000001 0.0461499999999996 0"
+      rpy="0 0 0" />
+    <parent
+      link="RL" />
+    <child
+      link="rl_thigh_motor_gear" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rl_shank_motor_gear">
+    <inertial>
+      <origin
+        xyz="2.77555756156289E-17 -0.0390538870170143 1.36202197337541E-12"
+        rpy="0 0 0" />
+      <mass
+        value="0.0385237466196057" />
+      <inertia
+        ixx="9.4738981050848E-06"
+        ixy="-2.19370245874338E-21"
+        ixz="-6.12307523690733E-22"
+        iyy="1.02723402754827E-05"
+        iyz="-2.78418906648244E-17"
+        izz="9.47389810508481E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_shank_motor_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_shank_motor_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rl_shank_motor"
+    type="revolute">
+    <origin
+      xyz="0.166 0.0461499999999996 0"
+      rpy="0 0 0" />
+    <parent
+      link="RL" />
+    <child
+      link="rl_shank_motor_gear" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rl_thigh">
+    <inertial>
+      <origin
+        xyz="-0.0419206883555094 -0.0254632107674466 -0.0224043485252849"
+        rpy="0 0 0" />
+      <mass
+        value="0.218415842102982" />
+      <inertia
+        ixx="0.000216408745022483"
+        ixy="1.28262258494719E-05"
+        ixz="-0.000240720605489246"
+        iyy="0.000728917805546161"
+        iyz="6.85493038181706E-06"
+        izz="0.00053816723325558" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rl_thigh"
+    type="revolute">
+    <origin
+      xyz="0.115999999999958 0.0871499999996471 -0.0101000000030167"
+      rpy="0 0 0" />
+    <parent
+      link="RL" />
+    <child
+      link="rl_thigh" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rl_shank">
+    <inertial>
+      <origin
+        xyz="0.0553397199171665 -0.00452548359017438 -0.0389694310680708"
+        rpy="0 0 0" />
+      <mass
+        value="0.286222307372735" />
+      <inertia
+        ixx="0.000612121045721215"
+        ixy="-9.34235624326787E-07"
+        ixz="0.000596058944308706"
+        iyy="0.00130942025529625"
+        iyz="7.85451309260405E-07"
+        izz="0.000712867733373934" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_shank.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_shank.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rl_shank"
+    type="revolute">
+    <origin
+      xyz="-0.158750058695487 -0.0110000000029586 -0.0848434962982125"
+      rpy="0 0 0" />
+    <parent
+      link="rl_thigh" />
+    <child
+      link="rl_shank" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rl_shank_link_a">
+    <inertial>
+      <origin
+        xyz="-0.0291978585426469 -0.0151800419182435 0.0324371419885487"
+        rpy="0 0 0" />
+      <mass
+        value="0.171587675279446" />
+      <inertia
+        ixx="0.000266491808328554"
+        ixy="4.7763191368494E-06"
+        ixz="0.000196776997272178"
+        iyy="0.000443409096749016"
+        iyz="-5.29808666983445E-06"
+        izz="0.000226582739117697" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_shank_link_a.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_shank_link_a.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rl_shank_link_a"
+    type="revolute">
+    <origin
+      xyz="0.115999999999958 0.0871499999996471 -0.0101000000030167"
+      rpy="0 0 0" />
+    <parent
+      link="RL" />
+    <child
+      link="rl_shank_link_a" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rl_shank_link_b">
+    <inertial>
+      <origin
+        xyz="-0.0609169177929412 -0.0128230771771025 -0.0390776785502438"
+        rpy="0 0 0" />
+      <mass
+        value="0.046938967984453" />
+      <inertia
+        ixx="5.42525204889845E-05"
+        ixy="-4.99307402883211E-07"
+        ixz="-6.30443742516989E-05"
+        iyy="0.000135875337919216"
+        iyz="-3.19210828049394E-07"
+        izz="8.28321057084224E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_shank_link_b.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rl_shank_link_b.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rl_shank_link_b"
+    type="revolute">
+    <origin
+      xyz="-0.104798293448273 -0.00600440930785714 0.116069102362285"
+      rpy="0 0 0" />
+    <parent
+      link="rl_shank_link_a" />
+    <child
+      link="rl_shank_link_b" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="RR">
+    <inertial>
+      <origin
+        xyz="0.108292536124551 0.0090153856722391 -0.000144060040353705"
+        rpy="0 0 0" />
+      <mass
+        value="0.985180705705079" />
+      <inertia
+        ixx="0.000917934575007807"
+        ixy="-7.85868808047232E-09"
+        ixz="1.41358958023693E-07"
+        iyy="0.00265898792194977"
+        iyz="3.88340247231123E-07"
+        izz="0.00208199931274182" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/RR.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/RR.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rr_hip"
+    type="revolute">
+    <origin
+      xyz="0.3723 0.0980000000239551 0"
+      rpy="0 0 3.14159265358979" />
+    <parent
+      link="base" />
+    <child
+      link="RR" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rr_shank_motor_gear">
+    <inertial>
+      <origin
+        xyz="2.77555756156289E-17 0.0390538870170143 -1.36203932166896E-12"
+        rpy="0 0 0" />
+      <mass
+        value="0.0385237466196057" />
+      <inertia
+        ixx="9.4738981050848E-06"
+        ixy="2.14962657059001E-21"
+        ixz="-8.26647307421798E-22"
+        iyy="1.02723402754827E-05"
+        iyz="-2.78458475396481E-17"
+        izz="9.47389810508481E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_shank_motor_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_shank_motor_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rr_shank_motor"
+    type="revolute">
+    <origin
+      xyz="0.16 -0.0461499999999999 0"
+      rpy="0 0 0" />
+    <parent
+      link="RR" />
+    <child
+      link="rr_shank_motor_gear" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rr_thigh_motor_gear">
+    <inertial>
+      <origin
+        xyz="-5.25690602160012E-14 0.0303984035950156 -1.08227457918392E-12"
+        rpy="0 0 0" />
+      <mass
+        value="0.0482357390578152" />
+      <inertia
+        ixx="1.0744281957417E-05"
+        ixy="-1.39109719005168E-21"
+        ixz="4.24006601371296E-21"
+        iyy="1.25106445892168E-05"
+        iyz="-6.16021100654887E-17"
+        izz="1.0744281957417E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_thigh_motor_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_thigh_motor_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rr_thigh_motor"
+    type="fixed">
+    <origin
+      xyz="0.0600000000000001 -0.0461500000000008 0"
+      rpy="0 0 0" />
+    <parent
+      link="RR" />
+    <child
+      link="rr_thigh_motor_gear" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rr_thigh">
+    <inertial>
+      <origin
+        xyz="-0.0436152408887544 0.00646320806564388 -0.0188947359569888"
+        rpy="0 0 0" />
+      <mass
+        value="0.218415934959633" />
+      <inertia
+        ixx="0.000179258932596873"
+        ixy="-1.33446994290097E-05"
+        ixz="-0.000211217994733"
+        iyy="0.00072891803387684"
+        iyz="-5.78110892030122E-06"
+        izz="0.000575317282889049" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rr_thigh"
+    type="fixed">
+    <origin
+      xyz="0.110000000000005 -0.0681500000003529 -0.0100999999976221"
+      rpy="0 0 0" />
+    <parent
+      link="RR" />
+    <child
+      link="rr_thigh" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rr_shank">
+    <inertial>
+      <origin
+        xyz="0.0439081668963137 -0.00347900751211649 -0.0515088268207761"
+        rpy="0 0 0" />
+      <mass
+        value="0.286223232313613" />
+      <inertia
+        ixx="0.000905545686299827"
+        ixy="7.10011725223506E-07"
+        ixz="0.00054658641026097"
+        iyy="0.00130942833689793"
+        iyz="-9.94056271527513E-07"
+        izz="0.00041945122859947" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_shank.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_shank.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rr_shank"
+    type="revolute">
+    <origin
+      xyz="-0.165167239762358 -0.00200000000249487 -0.0715526582963538"
+      rpy="0 0 0" />
+    <parent
+      link="rr_thigh" />
+    <child
+      link="rr_shank" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rr_shank_link_a">
+    <inertial>
+      <origin
+        xyz="-0.0217234424733285 0.0151800211823553 0.037852012509917"
+        rpy="0 0 0" />
+      <mass
+        value="0.171588117249831" />
+      <inertia
+        ixx="0.000346990992520944"
+        ixy="-3.5458408756055E-06"
+        ixz="0.000170377800759928"
+        iyy="0.000443409758382308"
+        iyz="6.1894491779289E-06"
+        izz="0.000146084226798699" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_shank_link_a.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_shank_link_a.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rr_shank_link_a"
+    type="revolute">
+    <origin
+      xyz="0.109999999999999 -0.0871500000003524 -0.0100999999969609"
+      rpy="0 0 0" />
+    <parent
+      link="RR" />
+    <child
+      link="rr_shank_link_a" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rr_shank_link_b">
+    <inertial>
+      <origin
+        xyz="-0.0632828173254183 0.0128264699785237 -0.0351066441945849"
+        rpy="0 0 0" />
+      <mass
+        value="0.0469434168092638" />
+      <inertia
+        ixx="4.6327173589254E-05"
+        ixy="5.22928187760542E-07"
+        ixz="-6.07055155523433E-05"
+        iyy="0.00013587277110655"
+        iyz="2.91268067119878E-07"
+        izz="9.07552272909915E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_shank_link_b.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mos2026/meshes/rr_shank_link_b.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rr_shank_link_b"
+    type="revolute">
+    <origin
+      xyz="-0.0776325273569684 0.00600440931663918 0.135749310749661"
+      rpy="0 0 0" />
+    <parent
+      link="rr_shank_link_a" />
+    <child
+      link="rr_shank_link_b" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

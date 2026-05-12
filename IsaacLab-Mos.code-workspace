@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../urdf/51leg"
+		}
+	],
+	"settings": {}
+}
